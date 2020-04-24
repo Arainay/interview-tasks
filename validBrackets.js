@@ -1,14 +1,23 @@
 export default function validBrackets(str) {
   const array = [];
-  const opens = ['(', '[', '{'];
-  const closes = [')', ']', '}',];
+
+  const opens = {
+    '(': 1,
+    '[': 2,
+    '{': 3
+  };
+
+  const closes = {
+    ')': 1,
+    ']': 2,
+    '}': 3
+  };
 
   for (const letter of str) {
-    if (opens.includes(letter)) {
+    if (opens[letter]) {
       array.push(letter);
-    } else if (closes.includes(letter)) {
-      const pos = closes.indexOf(letter);
-      if (opens[pos] === array[array.length - 1]) {
+    } else if (closes[letter]) {
+      if (opens[array[array.length - 1]] === closes[letter]) {
         array.pop();
       } else {
         return false;
@@ -17,4 +26,4 @@ export default function validBrackets(str) {
   }
 
   return array.length === 0;
-};
+}
